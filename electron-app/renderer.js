@@ -49,7 +49,10 @@ const elements = {
     aiStatusText: document.getElementById('aiStatusText'),
     aiMessages: document.getElementById('aiMessages'),
     aiInput: document.getElementById('aiInput'),
-    aiSendBtn: document.getElementById('aiSendBtn')
+    aiSendBtn: document.getElementById('aiSendBtn'),
+    
+    // Loading screen
+    loadingScreen: document.getElementById('loadingScreen')
 };
 
 // State
@@ -82,8 +85,19 @@ async function init() {
         elements.appVersion.textContent = `Version ${appInfo.version}`;
         
         console.log('Initialization complete');
+        
+        // Hide loading screen
+        setTimeout(() => {
+            elements.loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                elements.loadingScreen.style.display = 'none';
+            }, 500);
+        }, 1000);
+        
     } catch (error) {
         console.error('Error during initialization:', error);
+        // Hide loading screen even on error
+        elements.loadingScreen.classList.add('hidden');
     }
 }
 
@@ -121,6 +135,17 @@ function setupEventListeners() {
     // Console actions
     elements.clearBtn.addEventListener('click', clearConsole);
     elements.exportBtn.addEventListener('click', exportReport);
+    
+    // Logo Easter egg
+    const logoIcon = document.querySelector('.logo-icon');
+    if (logoIcon) {
+        logoIcon.addEventListener('click', () => {
+            logoIcon.style.animation = 'loading-pulse 0.6s ease-in-out';
+            setTimeout(() => {
+                logoIcon.style.animation = '';
+            }, 600);
+        });
+    }
     
     // About modal
     elements.aboutBtn.addEventListener('click', () => {

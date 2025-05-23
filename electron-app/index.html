@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cache Cleaner for macOS</title>
+    <link rel="icon" type="image/png" href="assets/icon-32.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,8 +13,13 @@
         <header class="header">
             <div class="header-content">
                 <div class="app-title">
-                    <h1>🧹 Cache Cleaner</h1>
-                    <p class="subtitle">Free up disk space on your Mac</p>
+                    <div class="app-logo">
+                        <img src="assets/icon-64.png" alt="Cache Cleaner" class="logo-icon">
+                        <div class="title-text">
+                            <h1>Cache Cleaner</h1>
+                            <p class="subtitle">Free up disk space on your Mac</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="header-actions">
                     <button class="icon-btn" id="aiBtn" title="AI Assistant">🤖</button>
@@ -220,7 +226,9 @@
                 <button class="close-btn" id="closeAboutBtn">×</button>
             </div>
             <div class="modal-body">
-                <div class="about-icon">🧹</div>
+                <div class="about-icon">
+                    <img src="assets/icon-128.png" alt="Cache Cleaner" class="about-logo">
+                </div>
                 <h3>Cache Cleaner for macOS</h3>
                 <p class="version" id="appVersion">Version 2.0.0</p>
                 <p>A modern utility to free up disk space by safely cleaning cache and temporary files on your Mac.</p>
@@ -240,6 +248,16 @@
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="assets/icon-128.png" alt="Cache Cleaner" class="loading-logo">
+            <h2>Cache Cleaner</h2>
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
         </div>
     </div>
 
