@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the directory containing this script
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+RESOURCES_DIR="$DIR/../Resources"
+
+# Set PYTHONPATH to include our resources
+export PYTHONPATH="$RESOURCES_DIR:$PYTHONPATH"
+
+# Change to resources directory
+cd "$RESOURCES_DIR"
+
+# Launch the GUI with Python
+if command -v python3 &> /dev/null; then
+    python3 cache_cleaner_gui.py "$@"
+else
+    echo "Error: Python 3 is required but not found"
+    exit 1
+fi

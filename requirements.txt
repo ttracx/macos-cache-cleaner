@@ -1,0 +1,18 @@
+# Requirements for macOS Cache Cleaner Desktop App
+# Standard library modules used (no additional packages required):
+# - tkinter (GUI framework - included with Python)
+# - threading (multithreading support - included with Python)
+# - queue (thread-safe communication - included with Python)
+# - subprocess (system command execution - included with Python)
+# - pathlib (modern path handling - included with Python)
+# - os (operating system interface - included with Python)
+# - shutil (file operations - included with Python)
+# - time (time utilities - included with Python)
+# - argparse (command line parsing - included with Python)
+
+# Optional dependencies for enhanced functionality:
+# Pillow>=8.0.0  # For advanced icon creation (not required for basic functionality)
+# py2app>=0.28   # For creating standalone macOS app bundles (alternative to manual bundle creation)
+
+# The application is designed to work with Python 3.6+ standard library only
+# No additional pip installations required for basic functionality
