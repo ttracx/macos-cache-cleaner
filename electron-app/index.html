@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Cleaner for macOS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="app-title">
+                    <h1>🧹 Cache Cleaner</h1>
+                    <p class="subtitle">Free up disk space on your Mac</p>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn" id="aiBtn" title="AI Assistant">🤖</button>
+                    <button class="icon-btn" id="settingsBtn" title="Settings">⚙️</button>
+                    <button class="icon-btn" id="aboutBtn" title="About">ℹ️</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Disk Usage Card -->
+        <div class="card disk-usage-card">
+            <h2>💾 Disk Usage</h2>
+            <div class="disk-info">
+                <div class="disk-stats">
+                    <div class="stat">
+                        <span class="stat-label">Used</span>
+                        <span class="stat-value" id="diskUsed">--</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Available</span>
+                        <span class="stat-value" id="diskAvailable">--</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Total</span>
+                        <span class="stat-value" id="diskTotal">--</span>
+                    </div>
+                </div>
+                <div class="disk-visual">
+                    <canvas id="diskChart" width="120" height="120"></canvas>
+                    <div class="disk-percentage" id="diskPercentage">0%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+            <h2>⚡ Quick Actions</h2>
+            <div class="quick-actions">
+                <button class="action-btn scan-btn" id="scanBtn">
+                    <span class="action-icon">🔍</span>
+                    <span class="action-text">
+                        <strong>Scan Only</strong>
+                        <small>Preview what can be cleaned</small>
+                    </span>
+                </button>
+                <button class="action-btn safe-btn" id="safeBtn">
+                    <span class="action-icon">✅</span>
+                    <span class="action-text">
+                        <strong>Safe Clean</strong>
+                        <small>Remove non-essential files</small>
+                    </span>
+                </button>
+                <button class="action-btn deep-btn" id="deepBtn">
+                    <span class="action-icon">🔥</span>
+                    <span class="action-text">
+                        <strong>Deep Clean</strong>
+                        <small>Maximum space recovery</small>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cleaning Options -->
+        <div class="card">
+            <h2>🎯 Cleaning Options</h2>
+            <div class="options-grid">
+                <label class="option">
+                    <input type="checkbox" id="dryRun" checked>
+                    <span class="option-text">
+                        <strong>Dry Run</strong>
+                        <small>Preview without deleting</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input type="checkbox" id="verbose" checked>
+                    <span class="option-text">
+                        <strong>Verbose Output</strong>
+                        <small>Show detailed information</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input type="checkbox" id="skipTrash">
+                    <span class="option-text">
+                        <strong>Skip Trash</strong>
+                        <small>Don't empty the trash</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input type="checkbox" id="skipMaintenance">
+                    <span class="option-text">
+                        <strong>Skip Maintenance</strong>
+                        <small>Don't run system scripts</small>
+                    </span>
+                </label>
+                <label class="option">
+                    <input type="checkbox" id="findLargeFiles">
+                    <span class="option-text">
+                        <strong>Find Large Files</strong>
+                        <small>Identify space hogs</small>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="card progress-card" id="progressCard" style="display: none;">
+            <h2>🚀 Cleaning Progress</h2>
+            <div class="progress-info">
+                <div class="progress-status" id="progressStatus">Initializing...</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-stats">
+                    <span id="spaceFreed">Space freed: 0 B</span>
+                    <button class="text-btn" id="stopBtn">Stop Cleaning</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Output Console -->
+        <div class="card console-card">
+            <div class="console-header">
+                <h2>📋 Output</h2>
+                <div class="console-actions">
+                    <button class="text-btn" id="clearBtn">Clear</button>
+                    <button class="text-btn" id="exportBtn">Export</button>
+                </div>
+            </div>
+            <div class="console" id="console">
+                <div class="console-placeholder">Output will appear here...</div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-bar">
+            <button class="btn btn-primary" id="startBtn">
+                <span>▶️ Start Cleaning</span>
+            </button>
+            <button class="btn btn-secondary" id="logsBtn">
+                <span>📁 Open Logs</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Assistant Panel -->
+    <div class="ai-panel" id="aiPanel">
+        <div class="ai-panel-header">
+            <h3>🤖 AI Assistant</h3>
+            <button class="close-btn" id="closeAIBtn">×</button>
+        </div>
+        <div class="ai-panel-body">
+            <div class="ai-status" id="aiStatus">
+                <span class="ai-status-indicator" id="aiStatusIndicator"></span>
+                <span id="aiStatusText">Checking AI status...</span>
+            </div>
+            
+            <div class="ai-quick-actions">
+                <button class="ai-quick-btn" data-action="recommend">
+                    <span class="ai-quick-icon">💡</span>
+                    <span>Get Recommendations</span>
+                </button>
+                <button class="ai-quick-btn" data-action="analyze">
+                    <span class="ai-quick-icon">📊</span>
+                    <span>Analyze Last Results</span>
+                </button>
+                <button class="ai-quick-btn" data-action="explain">
+                    <span class="ai-quick-icon">❓</span>
+                    <span>Explain Cache Types</span>
+                </button>
+            </div>
+
+            <div class="ai-chat-container">
+                <div class="ai-messages" id="aiMessages">
+                    <div class="ai-message ai-message-system">
+                        <p>👋 Hi! I'm your AI assistant specialized in macOS disk space optimization. I can help you:</p>
+                        <ul>
+                            <li>Analyze your disk usage and recommend cleaning strategies</li>
+                            <li>Explain what different caches do and their safety</li>
+                            <li>Provide tips for maintaining optimal disk space</li>
+                            <li>Troubleshoot disk space issues</li>
+                        </ul>
+                        <p>How can I help you today?</p>
+                    </div>
+                </div>
+                <div class="ai-input-container">
+                    <textarea class="ai-input" id="aiInput" placeholder="Ask me anything about disk space, caches, or system maintenance..." rows="2"></textarea>
+                    <button class="ai-send-btn" id="aiSendBtn">
+                        <span>Send</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>About Cache Cleaner</h2>
+                <button class="close-btn" id="closeAboutBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="about-icon">🧹</div>
+                <h3>Cache Cleaner for macOS</h3>
+                <p class="version" id="appVersion">Version 2.0.0</p>
+                <p>A modern utility to free up disk space by safely cleaning cache and temporary files on your Mac.</p>
+                <div class="about-details">
+                    <p><strong>Created by:</strong> Tommy Xaypanya</p>
+                    <p><strong>GitHub:</strong> <a href="#" id="githubLink">@ttracx</a></p>
+                    <p><strong>Email:</strong> mail@tommytracx.com</p>
+                </div>
+                <div class="about-features">
+                    <h4>Features:</h4>
+                    <ul>
+                        <li>Safe cache cleaning with preview mode</li>
+                        <li>Browser and development cache cleanup</li>
+                        <li>System maintenance integration</li>
+                        <li>Large file detection</li>
+                        <li>Beautiful native macOS interface</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
