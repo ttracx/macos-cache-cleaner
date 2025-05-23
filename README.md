@@ -7,6 +7,11 @@ A comprehensive utility designed specifically for macOS Silicon (Apple M1/M2/M3)
 **Email:** mail@tommytracx.com  
 **Version:** 2.0.0
 
+## Screenshots
+
+![Cache Cleaner Desktop App](docs/images/app-screenshot.png)
+*Modern desktop interface with real-time disk visualization and AI assistant*
+
 ## Features
 
 ### Core Cleaning Features

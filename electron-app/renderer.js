@@ -62,14 +62,29 @@ let aiReady = false;
 
 // Initialize
 async function init() {
-    await updateDiskUsage();
-    setupEventListeners();
-    setupCleaningListeners();
-    setupAI();
+    console.log('Starting initialization...');
     
-    // Update app info
-    const appInfo = await window.electronAPI.getAppInfo();
-    elements.appVersion.textContent = `Version ${appInfo.version}`;
+    try {
+        console.log('Setting up event listeners...');
+        setupEventListeners();
+        
+        console.log('Setting up cleaning listeners...');
+        setupCleaningListeners();
+        
+        console.log('Updating disk usage...');
+        await updateDiskUsage();
+        
+        console.log('Setting up AI...');
+        setupAI().catch(err => console.warn('AI setup failed:', err));
+        
+        console.log('Getting app info...');
+        const appInfo = await window.electronAPI.getAppInfo();
+        elements.appVersion.textContent = `Version ${appInfo.version}`;
+        
+        console.log('Initialization complete');
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
 }
 
 // Setup event listeners
@@ -658,5 +673,13 @@ async function startCleaning() {
     }
 }
 
-// Initialize app
-init();
+// Debug logging
+console.log('Renderer script loaded');
+
+// Initialize app with error handling
+try {
+    init();
+    console.log('App initialized successfully');
+} catch (error) {
+    console.error('Failed to initialize app:', error);
+}

@@ -58,12 +58,15 @@ body {
     overflow: hidden;
 }
 
+/* Debug removed - CSS is working */
+
 /* Container */
 .container {
     height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    background: var(--bg-primary);
 }
 
 /* Header */
@@ -99,10 +102,11 @@ body {
 }
 
 /* Main Content */
-.container > *:not(.header) {
+.main-content {
     padding: var(--spacing-lg);
     overflow-y: auto;
     flex: 1;
+    background: var(--bg-primary);
 }
 
 /* Cards */

@@ -20,6 +20,7 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false
     },
+    show: false,
     titleBarStyle: 'hiddenInset',
     backgroundColor: '#f5f5f7',
     icon: path.join(__dirname, 'assets', 'icon.png')
@@ -31,6 +32,11 @@ function createWindow() {
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
+  
+  // Show window when ready
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
+  });
 }
 
 app.whenReady().then(() => {
