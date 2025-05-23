@@ -1,14 +1,15 @@
 # macOS Silicon Cache & Temp File Cleaner
 
-A comprehensive utility designed specifically for macOS Silicon (Apple M1/M2/M3) systems to safely clean cache and temporary files, freeing up valuable disk space.
+A comprehensive utility designed specifically for macOS Silicon (Apple M1/M2/M3) systems to safely clean cache and temporary files, freeing up valuable disk space. Now featuring an AI assistant powered by local LLM for intelligent cleaning recommendations.
 
 **Created by:** Tommy Xaypanya  
 **GitHub:** [@ttracx](https://github.com/ttracx)  
 **Email:** mail@tommytracx.com  
-**Version:** 1.0.0
+**Version:** 2.0.0
 
 ## Features
 
+### Core Cleaning Features
 - 🧹 **Safe Cache Cleaning**: Intelligently cleans user and system caches without affecting critical system files
 - 🌐 **Browser Data Cleanup**: Removes browser caches (Safari, Chrome, Firefox, Edge)
 - 💻 **Development Cache Cleanup**: Cleans npm, yarn, pip, Docker, and Xcode caches
@@ -18,21 +19,44 @@ A comprehensive utility designed specifically for macOS Silicon (Apple M1/M2/M3)
 - 🔍 **Large File Scanner**: Identifies large files for manual review
 - 🔒 **Safety First**: Dry-run mode and intelligent exclusions prevent accidental deletions
 
+### New in Version 2.0
+- 🤖 **AI Assistant**: Local LLM-powered assistant for intelligent cleaning recommendations
+- 🎨 **Modern Desktop App**: Beautiful Electron-based GUI with native macOS design
+- 📊 **Real-time Disk Visualization**: Interactive disk usage charts and statistics
+- ⚡ **Quick Actions**: One-click presets for common cleaning scenarios
+- 💬 **Interactive Help**: Ask questions and get personalized advice
+- 📱 **Progress Tracking**: Live updates during cleaning operations
+
 ## Quick Start
 
-### Make the script executable
+### Option 1: Desktop App (Recommended)
 ```bash
+# Navigate to the electron app directory
+cd electron-app
+
+# Install dependencies
+npm install
+
+# Launch the app
+./run.sh
+```
+
+### Option 2: Command Line
+```bash
+# Make the script executable
 chmod +x cache_cleaner.py
-```
 
-### Run a dry-run first (recommended)
-```bash
+# Run a dry-run first (recommended)
 ./cache_cleaner.py --dry-run --verbose
+
+# Run the actual cleanup
+./cache_cleaner.py
 ```
 
-### Run the actual cleanup
+### Option 3: Python GUI (Legacy)
 ```bash
-./cache_cleaner.py
+# Run the Tkinter-based GUI
+python3 cache_cleaner_gui.py
 ```
 
 ## Usage Options
@@ -149,9 +173,18 @@ Total space freed: 4.5 GB
 
 ## Requirements
 
+### Core Requirements
 - macOS (designed for Apple Silicon but works on Intel Macs too)
 - Python 3.6 or later
 - Administrator privileges (for some system maintenance tasks)
+
+### Desktop App Requirements
+- Node.js 16 or later
+- npm or yarn
+
+### AI Assistant Requirements (Optional)
+- Ollama (for local AI features)
+- ~4GB disk space for AI model
 
 ## Troubleshooting
 
@@ -185,9 +218,53 @@ This utility is provided as-is for educational and personal use. Use at your own
 
 If you find this utility helpful, consider giving it a ⭐ on GitHub!
 
+## AI Assistant Setup
+
+To enable the AI assistant features:
+
+1. **Install Ollama**:
+```bash
+curl -fsSL https://ollama.ai/install.sh | sh
+```
+
+2. **Run the setup script**:
+```bash
+cd electron-app
+./setup-ollama.sh
+```
+
+3. The AI assistant will be available via the 🤖 button in the desktop app
+
+## Building for Distribution
+
+To create a distributable .dmg file:
+
+```bash
+cd electron-app
+./build.sh
+```
+
+The built application will be in the `electron-app/dist/` directory.
+
+## Documentation
+
+- [User Guide](docs/USER_GUIDE.md) - Detailed usage instructions
+- [Developer Guide](docs/DEVELOPER_GUIDE.md) - Development and contribution guidelines
+- [AI Integration](docs/AI_INTEGRATION.md) - AI assistant features and setup
+- [API Reference](docs/API_REFERENCE.md) - Command line and programmatic usage
+- [Safety Guide](docs/SAFETY_GUIDE.md) - Understanding what's safe to clean
+
 ## Changelog
 
-### v1.0.0
+### v2.0.0 (2024)
+- Added modern Electron-based desktop application
+- Integrated AI assistant with local LLM support
+- New interactive disk visualization
+- Quick action presets
+- Real-time progress tracking
+- Improved safety checks
+
+### v1.0.0 (2024)
 - Initial release
 - Basic cache and temp file cleaning
 - Safety features and dry-run mode
